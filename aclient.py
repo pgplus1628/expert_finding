@@ -4,11 +4,11 @@ import pprint
 from publication import APub
 from conference import AConf
 
-URL_SEARCH_PUB_BY_AID = "http://arnetminer.org/services/publication/byperson/%s?u=zorksylar"
-URL_SEARCH_AID_BY_ANAME = "http://arnetminer.org/services/person/%s?u=zorksylar"
-URL_SEARCH_CONF_BY_TOPIC = "http://arnetminer.org/services/search-conference?u=zorksylar&q=%s"
-URL_SEARCH_CONF_BY_NAME = "http://arnetminer.org/services/jconf/%s?u=zorksylar"
-URL_SEARCH_CONF_BY_ID = "http://arnetminer.org/services/jconf/%s?u=zorksylar"
+URL_SEARCH_PUB_BY_AID = "http://arnetminer.org/services/publication/byperson/%s?u=oyster"
+URL_SEARCH_AID_BY_ANAME = "http://arnetminer.org/services/person/%s?u=oyster"
+URL_SEARCH_CONF_BY_TOPIC = "http://arnetminer.org/services/search-conference?u=oyster&q=%s"
+URL_SEARCH_CONF_BY_NAME = "http://arnetminer.org/services/jconf/%s?u=oyster"
+URL_SEARCH_CONF_BY_ID = "http://arnetminer.org/services/jconf/%s?u=oyster"
 
 
 
@@ -38,7 +38,8 @@ class AClient:
     data = json.loads(resp)
     ret = []
     for d in data : 
-      apub = APub(d['Id'], d['Title'], d['Jconfname'], d['Citedby'])
+      tconf = self.get_conf_by_name(d['Jconfname'])
+      apub = APub(d['Id'], d['Title'], tconf.cid, d['Citedby'])
       ret.append(apub)
     return ret
 
@@ -51,6 +52,9 @@ class AClient:
 
 
   def get_confs_by_topic(self, topic, num):
+    """
+    Returns : A list, each member is AConf
+    """
     resp = urllib2.urlopen((URL_SEARCH_CONF_BY_TOPIC % topic).
                            replace(" ","%20") + '&num=' + str(num)).read()
     data = json.loads(resp)
