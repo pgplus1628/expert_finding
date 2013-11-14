@@ -35,7 +35,7 @@ class APub :
   def __repr__(self):
     return "<APub pid : %s, tit = %s, conf = %s, cit = %s>" %(self.pid, 
                                                               self.tit,
-                                                              self.conf
+                                                              self.conf,
                                                               self.cit)
 
 

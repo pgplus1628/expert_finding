@@ -7,7 +7,9 @@ from conference import AConf
 URL_SEARCH_PUB_BY_AID = "http://arnetminer.org/services/publication/byperson/%s?u=zorksylar"
 URL_SEARCH_AID_BY_ANAME = "http://arnetminer.org/services/person/%s?u=zorksylar"
 URL_SEARCH_CONF_BY_TOPIC = "http://arnetminer.org/services/search-conference?u=zorksylar&q=%s"
-URL_SEARCH_CONF_BY_NAME = "http://arnetminer.org/services/search-conference?u=zorksylar&q=%s"
+URL_SEARCH_CONF_BY_NAME = "http://arnetminer.org/services/jconf/%s?u=zorksylar"
+URL_SEARCH_CONF_BY_ID = "http://arnetminer.org/services/jconf/%s?u=zorksylar"
+
 
 
 pp = pprint.PrettyPrinter(indent=4)
@@ -54,15 +56,24 @@ class AClient:
     data = json.loads(resp)
     ret = []
     for d in data['Results']:
-      aconf = AConf(d['Id'], d['Name'])
-      ret.append(aconf)
+      ret.append(self.get_conf_by_cid(d['Id']))
     return ret
 
 
   def get_conf_by_name(self, name):
     resp = urllib2.urlopen((URL_SEARCH_CONF_BY_NAME % name).
                            replace(" ","%20")).read()
-    data = json.loads(resp)
+    data = json.loads(resp)[0]
+    return AConf(data['Id'], data['Name'], data['Score'])
+
+
+  def get_conf_by_cid(self, cid):
+    resp = urllib2.urlopen((URL_SEARCH_CONF_BY_ID % cid).
+                           replace(" ","%20")).read()
+    data = json.loads(resp)[0]
+    return AConf(data['Id'], data['Name'], data['Score'])
+    
+
 
 
 if __name__ == '__main__' :
@@ -75,8 +86,11 @@ if __name__ == '__main__' :
 
   confs_num = c.get_confs_num_by_topic('Distributed System')
   print confs_num
-  if (confs_num > 200) :
-    confs_num = 200
+  if (confs_num > 20) :
+    confs_num = 20
   confs = c.get_confs_by_topic('Distributed System', confs_num)
-  pp.pprint(confs[0])
-  
+  pp.pprint(confs)
+
+
+
+
