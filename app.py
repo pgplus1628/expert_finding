@@ -9,9 +9,9 @@ app.debug = True
 def hello():
 	return "hello world"
 
-URL_SEARCH_EXPERT = "http://arnetminer.org/services/search-expert?u=neo&start=0&num=100&q=%s"
-URL_SEARCH_PUBLICATION = "http://arnetminer.org/services/search-publication?u=neo&start=0&num=100&q=%s"
-URL_SEARCH_CONFERENCE = "http://arnetminer.org/services/search-conference?u=neo&start=0&num=100&q=%s"
+URL_SEARCH_EXPERT = "http://arnetminer.org/services/search-expert?u=zorksylar&start=0&num=100&q=%s"
+URL_SEARCH_PUBLICATION = "http://arnetminer.org/services/search-publication?u=zorksylar&start=0&num=100&q=%s"
+URL_SEARCH_CONFERENCE = "http://arnetminer.org/services/search-conference?u=zorksylar&start=0&num=100&q=%s"
 URL_SEARCH_PUBLICATION_BY_AUTHOR = "http://arnetminer.org/services/publication/byperson/%s"
 
 @app.route("/search/<query>")
