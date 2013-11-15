@@ -1,5 +1,6 @@
 import urllib2
 import json
+import pickle
 import pprint
 from publication import APub
 from conference import AConf
@@ -41,7 +42,8 @@ class AClient:
   def __load_single(self, fname, cache):
     try : 
       fin = open(fname, 'r')
-      cache = json.loads(fin.read(fin))
+      cache = pickle.load(fin)
+      print "[ load cache ] load %s ok" %(fname)
       fin.close()
     except :
       return 
@@ -58,7 +60,8 @@ class AClient:
 
   def __dump_single(self, fname, cache):
     fout = open(fname, 'w')
-    fout.write(json.dumps(cache))
+    pickle.dump(cache, fout)
+    print "[ dump cache ] dump %s ok" %(fname)
     fout.close()
 
   def dump_cache(self):
