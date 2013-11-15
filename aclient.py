@@ -15,12 +15,12 @@ URL_SEARCH_CONF_BY_ID = "http://arnetminer.org/services/jconf/%s?u=oyster"
 
 pp = pprint.PrettyPrinter(indent=4)
 
-cmap_name_aid = dict()
-cmap_aid_pubs = dict()
-cmap_topic_confs_num = dict()
-cmap_topic_confs = dict()
-cmap_cname_conf = dict()
-cmap_cid_conf = dict()
+#cmap_name_aid = dict()
+#cmap_aid_pubs = dict()
+#cmap_topic_confs_num = dict()
+#cmap_topic_confs = dict()
+#cmap_cname_conf = dict()
+#cmap_cid_conf = dict()
  
 
 NAME_ID = 'aname_aid.cache'
@@ -35,52 +35,65 @@ CID_CONF = 'cid_conf.cache'
 class AClient:
   """arnetminer client
   """
+  cmap_name_aid = dict()
+  cmap_aid_pubs = dict()
+  cmap_topic_confs_num = dict()
+  cmap_topic_confs = dict()
+  cmap_cname_conf = dict()
+  cmap_cid_conf = dict()
+ 
+  loaded = False
 
   def __init__(self):
-    self.load_cache()
+    if not AClient.loaded : 
+      self.load_cache()
+      AClient.loaded = True
 
-  def __load_single(self, fname, cache):
+
+  def __load_single(self, fname):
     try : 
       fin = open(fname, 'r')
       cache = pickle.load(fin)
-      print "[ load cache ] load %s ok" %(fname)
+      print "[ load cache ] load %s ok ==>  %d" %(fname, len(cache))
       fin.close()
-    except :
-      return 
+      return cache
+    except Exception as e :
+      print e
+      return {}
 
 
   def load_cache(self):
-    self.__load_single(NAME_ID, cmap_name_aid)
-    self.__load_single(AID_PUBS, cmap_aid_pubs)
-    self.__load_single(TOPIC_CONFS_NUM, cmap_topic_confs_num)
-    self.__load_single(TOPIC_CONFS, cmap_topic_confs)
-    self.__load_single(CNAME_CONF, cmap_cname_conf)
-    self.__load_single(CID_CONF, cmap_cid_conf)
+    AClient.cmap_name_aid = self.__load_single(NAME_ID)
+    AClient.cmap_aid_pubs = self.__load_single(AID_PUBS)
+    AClient.cmap_topic_confs_num = self.__load_single(TOPIC_CONFS_NUM)
+    AClient.cmap_topic_confs = self.__load_single(TOPIC_CONFS)
+    AClient.cmap_cname_conf = self.__load_single(CNAME_CONF)
+    AClient.cmap_cid_conf = self.__load_single(CID_CONF)
 
 
   def __dump_single(self, fname, cache):
     fout = open(fname, 'w')
     pickle.dump(cache, fout)
-    print "[ dump cache ] dump %s ok" %(fname)
+    print "[ dump cache ] dump %s ok ==>  %d" %(fname, len(cache))
     fout.close()
 
   def dump_cache(self):
-    self.__dump_single(NAME_ID, cmap_name_aid)
-    self.__dump_single(AID_PUBS, cmap_aid_pubs)
-    self.__dump_single(TOPIC_CONFS_NUM, cmap_topic_confs_num)
-    self.__dump_single(TOPIC_CONFS, cmap_topic_confs)
-    self.__dump_single(CNAME_CONF, cmap_cname_conf)
-    self.__dump_single(CID_CONF, cmap_cid_conf)
+    self.__dump_single(NAME_ID, AClient.cmap_name_aid)
+    self.__dump_single(AID_PUBS, AClient.cmap_aid_pubs)
+    self.__dump_single(TOPIC_CONFS_NUM, AClient.cmap_topic_confs_num)
+    self.__dump_single(TOPIC_CONFS, AClient.cmap_topic_confs)
+    self.__dump_single(CNAME_CONF, AClient.cmap_cname_conf)
+    self.__dump_single(CID_CONF, AClient.cmap_cid_conf)
 
   
   def get_aid_by_name(self, aname):
-    if aname in cmap_name_aid :
-      return cmap_name_aid[aname]
+    if aname in AClient.cmap_name_aid :
+      return AClient.cmap_name_aid[aname]
     else :
       resp = urllib2.urlopen((URL_SEARCH_AID_BY_ANAME % aname).
                              replace(" ", "%20")).read()
       data = json.loads(resp)
-      cmap_name_aid[aname] = data[0]['Id']
+      AClient.cmap_name_aid[aname] = data[0]['Id']
       return data[0]['Id']
 
   
@@ -88,8 +101,8 @@ class AClient:
     """
     Returns : A list, each member is an APub object
     """
-    if aid in cmap_aid_pubs : 
-      return cmap_aid_pubs[aid]
+    if aid in AClient.cmap_aid_pubs : 
+      return AClient.cmap_aid_pubs[aid]
     else :
       resp = urllib2.urlopen((URL_SEARCH_PUB_BY_AID % aid).
                              replace(" ","%20")).read()
@@ -101,20 +114,21 @@ class AClient:
           apub = APub(d['Id'], d['Title'], tconf.cid, d['Citedby'])
           ret.append(apub)
         except Exception as e : 
-          pp.pprint(d)
+          pass
+          #pp.pprint(d)
   
-      cmap_aid_pubs[aid] = ret
+      AClient.cmap_aid_pubs[aid] = ret
       return ret
 
 
   def get_confs_num_by_topic(self, topic):
-    if topic in cmap_topic_confs_num : 
-      return cmap_topic_confs_num[topic]
+    if topic in AClient.cmap_topic_confs_num : 
+      return AClient.cmap_topic_confs_num[topic]
     else : 
       resp = urllib2.urlopen((URL_SEARCH_CONF_BY_TOPIC % topic).
                              replace(" ","%20")).read()
       data = json.loads(resp)
-      cmap_topic_confs_num[topic] = data['TotalResultCount']
+      AClient.cmap_topic_confs_num[topic] = data['TotalResultCount']
       return data['TotalResultCount']
 
 
@@ -123,8 +137,8 @@ class AClient:
     Returns : A list, each member is AConf
     """
     key = topic + '|' + str(num)
-    if key  in cmap_topic_confs : 
-      return cmap_topic_confs[key]
+    if key  in AClient.cmap_topic_confs : 
+      return AClient.cmap_topic_confs[key]
     else :
       resp = urllib2.urlopen((URL_SEARCH_CONF_BY_TOPIC % topic).
                              replace(" ","%20") + '&num=' + str(num)).read()
@@ -133,33 +147,34 @@ class AClient:
       for d in data['Results']:
         ret.append(self.get_conf_by_cid(d['Id']))
   
-      cmap_topic_confs[key] = ret
+      AClient.cmap_topic_confs[key] = ret
       return ret
 
 
   def get_conf_by_name(self, name):
-    if name in cmap_name_conf : 
-      return cmap_name_conf[name]
+    if name in AClient.cmap_name_conf : 
+      return AClient.cmap_name_conf[name]
     else :
       resp = urllib2.urlopen((URL_SEARCH_CONF_BY_NAME % name).
                              replace(" ","%20")).read()
       data = json.loads(resp)[0]
       rconf = AConf(data['Id'], data['Name'], data['Score'])
 
-      cmap_name_conf[name] = rconf
+      AClient.cmap_name_conf[name] = rconf
       return rconf
 
 
   def get_conf_by_cid(self, cid):
-    if cid in cmap_cid_conf : 
-      return cmap_cid_conf[cid]
+    if cid in AClient.cmap_cid_conf : 
+      #print "=============== hit =========="
+      return AClient.cmap_cid_conf[cid]
     else : 
       resp = urllib2.urlopen((URL_SEARCH_CONF_BY_ID % cid).
                              replace(" ","%20")).read()
       data = json.loads(resp)[0]
       rconf = AConf(data['Id'], data['Name'], data['Score'])
 
-      cmap_cid_conf[cid] = rconf
+      AClient.cmap_cid_conf[cid] = rconf
       return rconf
 
 
@@ -181,7 +196,4 @@ if __name__ == '__main__' :
   pp.pprint(confs)
 
   ZC.dump_cache()
-
-
-
 

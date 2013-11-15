@@ -1,11 +1,11 @@
 from aclient import AClient
 from publication import APub
 from conference import AConf
+from aclient import ZC
 
 import math
 
 
-client = AClient()
 CONFS_SIZE = 20
 RANK_SIZE = 5
 
@@ -26,10 +26,10 @@ class Feature:
 
 
   def __get_related_confs(self):
-    confs_size = client.get_confs_num_by_topic(self.topic)
+    confs_size = ZC.get_confs_num_by_topic(self.topic)
     if confs_size > CONFS_SIZE :
       confs_size = CONFS_SIZE
-    confs = client.get_confs_by_topic(self.topic, confs_size)
+    confs = ZC.get_confs_by_topic(self.topic, confs_size)
 
     for tc in confs:
       self.conf_map[tc.cid] = tc
@@ -37,7 +37,7 @@ class Feature:
 
   def __pull_feature(self):
     # I. Get all pubs
-    pubs = client.get_pubs_by_aid(self.aid)
+    pubs = ZC.get_pubs_by_aid(self.aid)
     
     # II. Diff pubs and confs, get valid pubs
     valid_pubs = []
@@ -71,10 +71,11 @@ if __name__ == '__main__' :
   aname = 'Jie Tang'
   topic = 'Data Mining'
 
-  aid = client.get_aid_by_name(aname)
+  aid = ZC.get_aid_by_name(aname)
   print aid
   fea = Feature(topic)
   flist = fea.get_feature_vector(aid)
   print flist
 
-
+  ZC.dump_cache()
+  
