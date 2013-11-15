@@ -15,7 +15,6 @@ class Feature:
   crank = [0.0] * RANK_SIZE
 
   topic = ''
-  aid = 0
   aname = ''
   
   conf_map = {}
@@ -35,9 +34,9 @@ class Feature:
       self.conf_map[tc.cid] = tc
 
 
-  def __pull_feature(self):
+  def __pull_feature(self, aid):
     # I. Get all pubs
-    pubs = ZC.get_pubs_by_aid(self.aid)
+    pubs = ZC.get_pubs_by_aid(aid)
     
     # II. Diff pubs and confs, get valid pubs
     valid_pubs = []
@@ -51,18 +50,17 @@ class Feature:
     for it in valid_pubs : 
       v = int(math.floor(it[1] / 0.5))
       if (v < RANK_SIZE) : 
-        self.prank[v] += 1
+        self.prank[v] += 1.0
         self.crank[v] += it[0].cit
       else : 
-        self.prank[RANK_SIZE-1] += 1
+        self.prank[RANK_SIZE-1] += 1.0
         self.crank[v] += it[0].cit
 
 
   def get_feature_vector(self, aid) :
-    self.aid = aid
     self.prank = [0.0] * RANK_SIZE
     self.crank = [0.0] * RANK_SIZE
-    self.__pull_feature()
+    self.__pull_feature(aid)
     return self.prank + self.crank
 
 

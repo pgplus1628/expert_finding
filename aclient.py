@@ -114,7 +114,7 @@ class AClient:
           apub = APub(d['Id'], d['Title'], tconf.cid, d['Citedby'])
           ret.append(apub)
         except Exception as e : 
-          pass
+          print e
           #pp.pprint(d)
   
       AClient.cmap_aid_pubs[aid] = ret
@@ -152,15 +152,15 @@ class AClient:
 
 
   def get_conf_by_name(self, name):
-    if name in AClient.cmap_name_conf : 
-      return AClient.cmap_name_conf[name]
+    if name in AClient.cmap_cname_conf : 
+      return AClient.cmap_cname_conf[name]
     else :
       resp = urllib2.urlopen((URL_SEARCH_CONF_BY_NAME % name).
                              replace(" ","%20")).read()
       data = json.loads(resp)[0]
       rconf = AConf(data['Id'], data['Name'], data['Score'])
 
-      AClient.cmap_name_conf[name] = rconf
+      AClient.cmap_cname_conf[name] = rconf
       return rconf
 
 
