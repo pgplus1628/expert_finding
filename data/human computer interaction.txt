@@ -1,0 +1,214 @@
+5	1112373	Eric Lecolinet
+5	232288	Carl Gutwin
+5	362439	Mike Glaser
+5	1351518	Saleema Amershi
+5	752454	Jeffrey Bardzell
+5	539820	Rob Miller
+5	835693	Stephen Brewster
+5	1204869	Yevgeniy Medynskiy
+5	635565	Christian Holz
+5	552139	Tovi Grossman
+5	490028	Gonzalo Ramos
+5	755557	David England
+5	585975	Stephen Voida
+5	400497	Haoqi Zhang
+5	1510160	Patrick Baudisch
+5	1335867	Nathalie Henry
+5	849992	Jane®¶ Pelletie
+5	328771	Mark Newman
+5	128612	Erica Robles
+5	490415	Joanna McGrenere
+5	1154792	Lydia Chilton
+5	1622897	Jason Wiese
+5	177039	Allison Druin
+5	878403	Elizabeth Mynatt
+5	144541	Michael Arent
+5	1252102	Bo Begole
+5	429662	Dominik Schmidt
+5	34556	Jan Borchers
+5	849992	Jane√© Pelletier
+5	724541	Madhu Reddy
+5	1074561	Weiss
+5	123552	Kristina H√∂√∂k
+5	849992	Jane®¶ Pelletier
+5	541045	Dennis Wixon
+5	111460	Carla Diana
+5	753724	Cole Benson
+5	509953	Dario Rodighiero
+5	94146	Susanne B√∏dker
+5	722092	Carola Zwick
+5	1134927	Steven Dow
+5	440333	Arnold Lund
+5	780100	Susan Dray
+5	498910	Susanne¬†B√∏dker
+5	143647	Chauncey Wilson
+5	911802	Daniel Strazzulla
+5	693372	Gillian Hayes
+5	424848	Eli Blevis
+5	1184242	Albrecht Schmidt
+5	429375	Ido Guy
+5	938060	Katherine Isbister
+5	662805	Fran√ßois Dakini
+5	145513	Sara Drenner
+5	1111989	Gene Golovchinsky
+5	1427437	Tara Matthews
+5	90535	Jill Skuba
+5	349950	Adam J. Sporka
+5	908061	Daniel Wigdor
+5	119716	Henriette Cramer
+5	14243683	Aaron Houssian
+5	378709	Karen Cheng
+5	14295761	Arvind Satyanarayan
+5	45564	Steve Benford
+5	543739	Philippe Palanque
+5	125322	Kelly Caine
+5	560188	Gilbert Cockton
+5	867289	Lyn Bartram
+5	1543431	Don Schoner
+5	1100634	Amy Voida
+5	1247313	St√©phane Conversy
+5	1412386	Helena Mentis
+5	14345382	Aur®¶lien Tabard
+5	447449	Danielle Wilde
+5	1215245	Clemens Klokmose
+5	664524	Russ Burtner
+5	731580	Cliff Lampe
+5	732350	Heather Desurvire
+5	62994	Steven Poltrock
+5	289693	Lisa P. Nathan
+5	14235541	Jill Fantauzzacoffin
+5	1355526	Jim Nieters
+5	102338	Nicolas Roussel
+5	958201	Max Van Kleek
+5	1396035	Jacob O. Wobbrock
+5	1061383	Michael Glueck
+5	642160	Erik Stolterman
+5	14099295	Oscar Murillo
+5	481845	Oleg Komogortsev
+5	987686	Arnie Lund
+5	1277591	Jhilmil Jain
+5	196872	Keith Edwards
+5	550321	Shaowen   Bardzell
+5	831866	Robert J. Teather
+5	931150	Tom Rodden
+5	349950	Adam Sporka
+5	461723	Robert Fabricant
+5	1508826	Gillian R. Hayes
+5	291965	Catalina Danis
+5	102541	Magy Seif El-Nasr
+5	1450336	Jeffrey Nichols
+5	1133452	Mira Dontcheva
+5	1348524	Geraldine Fitzpatrick
+5	276762	Ed H. Chi
+5	174318	Ellen Yi-Luen Do
+5	1218731	Bobby Beaton
+5	273042	Stephen Oney
+5	10526	Elizabeth Dykstra-Erickson
+5	1165986	Brian Bailey
+5	424564	Bonnie John
+5	823530	James Lin
+5	579394	Youn-kyung Lim
+5	250788	Alireza Sahami Shirazi
+5	1009686	Michel Beaudouin-Lafon
+5	289395	Eelco Herder
+5	107052	Amanda Williams
+5	1344526	Anne Aula
+5	1543430	Richard B. Arthur
+5	1161113	Regina Bernhaupt
+5	1181326	Virpi Roto
+5	1362005	Nadir Weibel
+5	1157143	Jeff Nichols
+5	715613	Manfred Tscheligi
+5	1115946	Max L. Wilson
+5	612735	Scott Hudson
+5	1422611	Samuel Mann
+5	1435727	Scott Pobiner
+5	86713	Mary Beth Rosson
+5	987682	Ruven Brooks
+5	1203497	Desney Tan
+5	783916	Carola Thompson
+5	1323153	Paul Andr√©
+5	1232051	Lora Oehlberg
+5	49705	Paul Andr®¶
+5	904038	Mark Baskinger
+5	170258	Shahram Izadi
+5	262964	Garett Dworman
+5	14185225	Steve Brewster
+5	231963	Julie Kientz
+5	1200637	Kirstie Hawkey
+5	852002	Kenton O&#39;Hara
+5	221458	William Hudson
+5	514719	Fabio Paterno
+5	433459	Alex Kim
+5	1388293	Jon Kolko
+5	21648	Sean McNee
+5	1060665	Janet Read
+5	650281	Anthony Tang
+5	63624	Michael Bernstein
+5	671055	Celine Latulipe
+5	104840	Anijo Mathew
+5	14099296	Jofish Kaye
+5	399879	Svetlana Yarosh
+5	1226687	Meredith Ringel Morris
+5	243420	Panos Markopoulos
+5	242522	Scooter Morris
+5	553049	Juho Kim
+5	330625	Juan Pablo Hourcade
+5	272711	Keith Butler
+5	519341	Apala Lahiri Chavan
+5	604668	Thecla Schiphorst
+5	247523	Marty Hearst
+5	74220	Carl F. Disalvo
+5	486871	Keith Instone
+5	410649	William R. Hazelwood
+5	202383	James Eagan
+5	675770	Azam Khan
+5	386154	Alex Taylor
+5	3347	Gregorio Convertino
+5	210079	Seth Cooper
+5	123054	Winslow Burleson
+5	1217101	Yvonne Lopez
+5	271768	Jason Freeman
+5	275798	Anastasia Bezerianos
+5	268768	Daniela Rosner
+5	1007679	Eiji Hayashi
+5	500364	Jonathan Arnowitz
+5	565382	Mark Handel
+5	1130793	Eva Hornecker
+5	78999	Dan R. Olsen
+5	726502	Allison Perrelli
+5	1239611	Tessa A. Lau
+5	618137	Kaisa V√§√§n√§nen-Vainio-Mattila
+5	812934	Dirk-Jan Hoets
+5	1229485	Saul Greenberg
+5	1097903	Manas Tungare
+5	300411	Carol Klyver
+5	569688	Nicolai Marquardt
+5	550321	Shaowen Bardzell
+5	769315	Kurt Luther
+5	1430708	Lichan Hong
+5	416625	Wesley Willett
+5	233361	Lindsay Reynolds
+5	794682	Janice Rohn
+5	74335	Matt Jones
+5	1007679	Eiji Hayashi&nbsp;
+5	205055	James Stewart
+5	983572	Eben M. Haber
+5	957261	Nancy Frishberg
+5	147113	Patrick Olivier
+5	831234	Atau Tanaka
+5	734760	Wendy Kellogg
+5	841048	Tony Dunnigan
+5	1256770	Petra Sundstr√∂m
+5	42715	Michael Ekstrand
+5	375212	Ken Hinckley
+5	1543429	Dan R Olsen Jr¬†
+5	806991	John C. Thomas
+5	1437969	Chris Kim
+5	845951	Bongshin Lee
+5	988929	Florian 'Floyd' Mueller
+5	757575	Michael Terry
+5	952500	Fabio Patern√≤
+5	783916	Carola Fellenz Thompson
+5	14456020	Eben Haber
+5	38626	Scott

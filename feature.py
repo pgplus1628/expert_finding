@@ -6,12 +6,12 @@ import math
 
 
 client = AClient()
-CONFS_SIZE = 200
+CONFS_SIZE = 20
 RANK_SIZE = 5
 
 class Feature:
   
-  prank = [0] * RANK_SIZE
+  prank = [0.0] * RANK_SIZE
   crank = [0.0] * RANK_SIZE
 
   topic = ''
@@ -20,10 +20,10 @@ class Feature:
   
   conf_map = {}
   
-  def __init__(self, aid, topic):
-    self.aid = aid
+  def __init__(self, topic):
     self.topic = topic
     self.__get_related_confs()
+
 
   def __get_related_confs(self):
     confs_size = client.get_confs_num_by_topic(self.topic)
@@ -33,8 +33,6 @@ class Feature:
 
     for tc in confs:
       self.conf_map[tc.cid] = tc
-
-
 
 
   def __pull_feature(self):
@@ -59,7 +57,11 @@ class Feature:
         self.prank[RANK_SIZE-1] += 1
         self.crank[v] += it[0].cit
 
-  def get_feature_vector(self) :
+
+  def get_feature_vector(self, aid) :
+    self.aid = aid
+    self.prank = [0.0] * RANK_SIZE
+    self.crank = [0.0] * RANK_SIZE
     self.__pull_feature()
     return self.prank + self.crank
 
@@ -71,8 +73,8 @@ if __name__ == '__main__' :
 
   aid = client.get_aid_by_name(aname)
   print aid
-  fea = Feature(aid, topic)
-  flist = fea.get_feature_vector()
+  fea = Feature(topic)
+  flist = fea.get_feature_vector(aid)
   print flist
 
 

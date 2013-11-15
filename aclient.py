@@ -19,6 +19,7 @@ pp = pprint.PrettyPrinter(indent=4)
 class AClient:
   """arnetminer client
   """
+
   def __init__(self):
     pass 
   
@@ -38,9 +39,13 @@ class AClient:
     data = json.loads(resp)
     ret = []
     for d in data : 
-      tconf = self.get_conf_by_name(d['Jconfname'])
-      apub = APub(d['Id'], d['Title'], tconf.cid, d['Citedby'])
-      ret.append(apub)
+      try : 
+        tconf = self.get_conf_by_name(d['Jconfname'])
+        apub = APub(d['Id'], d['Title'], tconf.cid, d['Citedby'])
+        ret.append(apub)
+      except Exception as e : 
+        pp.pprint(d)
+
     return ret
 
 
@@ -61,6 +66,7 @@ class AClient:
     ret = []
     for d in data['Results']:
       ret.append(self.get_conf_by_cid(d['Id']))
+
     return ret
 
 
