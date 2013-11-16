@@ -8,7 +8,8 @@ def filter_data(fname):
   for line in fin :
     attr = line.split(None, 2)
     if attr[1] in amap : 
-      print attr
+      pass
+      #print attr
     else :
       amap[attr[1]] = attr
       fout.write(line)

@@ -1,5 +1,6 @@
 import svmlight
 from aclient import AClient
+from aclient import ZC
 from publication import APub
 from conference import AConf
 from feature import Feature
@@ -22,19 +23,18 @@ def init_data(fname, topic):
   fea = Feature(topic)
   train_rank = []
   for tid in amap : 
-    fv = fea.get_feature_vector(tid)
-    train_rank.append( (amap[tid][0], reform_vector(fv), QID) )
+    aid = int(tid)
+    fv = fea.get_feature_vector(aid)
+    print ('[ init_data ] %d get feature vector ok.' %(aid))
+    train_rank.append( (int(amap[tid][0]), reform_vector(fv), QID) )
+    #ZC.dump_cache()
 
   return train_rank
 
 
-def train(train_rank, test_rank):
+def train(training_data):
   print ('[ train ] ===================')
 
-
-  training_data = train_rank
-  test_data = test_rank
-  
   # train a model based on the data
   model = svmlight.learn(training_data, type='ranking', verbosity=0)
   
@@ -42,21 +42,32 @@ def train(train_rank, test_rank):
   # with the binaries.
   svmlight.write_model(model, 'ef_model.dat')
   
+
+
+def test(test_data, fmodel_name):
+
+  print ('[ test ] ===================')
+  model = svmlight.read_model(fmodel_name)
+
   # classify the test data. this function returns a list of numbers, which represent
   # the classifications.
   predictions = svmlight.classify(model, test_data)
   for p in predictions:
       print '%.8f' % p
+
+
+
   
 
 if __name__ == '__main__' : 
   fname = './data/data mining.txt'
   topic = 'data mining'
+  fmodel_name = 'ef_model.dat'
   train_rank = init_data(fname, topic)
-  print (train_rank)
+  test_rank = train_rank
 
-
-
+  #train(train_rank)
+  test(test_rank, fmodel_name)
 
 
 
