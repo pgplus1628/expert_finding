@@ -32,8 +32,7 @@ def search(query):
 	return json.dumps(better_result)	
 
 def rerank(result, topic):
-	rerank_data = zmodel.init_rerank_data(result, topic)
-	better_result = zmodel.zrank(rerank_data, zmodel.FMODEL_NAME)
+	better_result = zmodel.zrank(result, topic, zmodel.FMODEL_NAME)
 	return better_result
 
 @app.route("/network/<query>")

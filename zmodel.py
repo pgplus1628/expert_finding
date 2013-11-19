@@ -94,7 +94,10 @@ def test(test_data, fmodel_name):
       print '%.8f' % p
 
 
-def zrank(rerank_data, fmodel_name):
+def zrank(aids, topic, fmodel_name):
+
+  rerank_data = init_rerank_data(aids, topic)
+
   print ('[ zrank ] ===================')
   model = svmlight.read_model(fmodel_name)
 
@@ -103,8 +106,11 @@ def zrank(rerank_data, fmodel_name):
   aid_score = zip( [x[0] for x in rerank_data ], predictions)
   aid_score.sort(key = lambda tup : tup[1], reverse=True)
   
-  with open(RERANK_RESULT, 'w') as f :
+  with open(RERANK_RESULT + '_' + topic, 'w') as f :
     pprint.pprint(aid_score, f)
+
+  ZC.dump_cache()
+
 
   return [x[0] for x in aid_score]
 
