@@ -6,7 +6,7 @@ from aclient import ZC
 import math
 
 
-CONFS_SIZE = 20
+CONFS_SIZE = 200
 RANK_SIZE = 5
 
 class Feature:

@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 import urllib2
 import json
+import zmodel
 
 app = Flask(__name__)
 app.debug = True
@@ -21,11 +22,12 @@ def search(query):
 	result = []
 	for item in data["Results"]:
 		result.append(item["Id"])
-	return json.dumps(result)	
+  better_result = rerank(result, query)
+	return json.dumps(better_result)	
 
-def rerank(result):
-	better_result = result
-	# do whatever you want
+def rerank(result, topic):
+  rerank_data = zmodel.init_rerank_data(result, topic)
+  better_result = zmodel.zrank(rerank_data, zmodel.FMODEL_NAME)
 	return better_result
 
 @app.route("/network/<query>")
@@ -66,4 +68,5 @@ def coauthor():
 
 
 if __name__ == "__main__":
-	app.run()
+	#app.run()
+  app.run(host='0.0.0.0')
