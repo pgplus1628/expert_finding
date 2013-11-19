@@ -56,6 +56,7 @@ def init_test_data(fname, topic):
 
 
 def init_rerank_data(aids , topic):
+  QID = 1
   fea = Feature(topic)
   rerank_data = []
   for tid in aids : 
