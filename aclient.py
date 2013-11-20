@@ -5,11 +5,14 @@ import pprint
 from publication import APub
 from conference import AConf
 
-URL_SEARCH_PUB_BY_AID = "http://arnetminer.org/services/publication/byperson/%s?u=oyster"
-URL_SEARCH_AID_BY_ANAME = "http://arnetminer.org/services/person/%s?u=oyster"
-URL_SEARCH_CONF_BY_TOPIC = "http://arnetminer.org/services/search-conference?u=oyster&q=%s"
-URL_SEARCH_CONF_BY_NAME = "http://arnetminer.org/services/jconf/%s?u=oyster"
-URL_SEARCH_CONF_BY_ID = "http://arnetminer.org/services/jconf/%s?u=oyster"
+#USER = 'oyster'
+USER = 'zorksylar'
+URL_SEARCH_PUB_BY_AID = "http://arnetminer.org/services/publication/byperson/%s?u=" + USER
+URL_SEARCH_AID_BY_ANAME = "http://arnetminer.org/services/person/%s?u=" + USER
+URL_SEARCH_CONF_BY_TOPIC = "http://arnetminer.org/services/search-conference?u=" + USER + "&q=%s"
+URL_SEARCH_CONF_BY_NAME = "http://arnetminer.org/services/jconf/%s?u=" + USER
+URL_SEARCH_CONF_BY_ID = "http://arnetminer.org/services/jconf/%s?u=" + USER
+URL_SEARCH_EXPERT = "http://arnetminer.org/services/search-expert?u=" + USER + "&start=0&num=%d&q=%s"
 
 
 
@@ -115,7 +118,7 @@ class AClient:
           ret.append(apub)
         except Exception as e : 
           print e
-          #pp.pprint(d)
+          pp.pprint(d)
   
       AClient.cmap_aid_pubs[aid] = ret
       return ret
@@ -128,7 +131,12 @@ class AClient:
       resp = urllib2.urlopen((URL_SEARCH_CONF_BY_TOPIC % topic).
                              replace(" ","%20")).read()
       data = json.loads(resp)
-      AClient.cmap_topic_confs_num[topic] = data['TotalResultCount']
+      try :
+        AClient.cmap_topic_confs_num[topic] = data['TotalResultCount']
+      except Exception as e : 
+        pprint.pprint(data)
+        raise e
+
       return data['TotalResultCount']
 
 
@@ -177,6 +185,20 @@ class AClient:
       AClient.cmap_cid_conf[cid] = rconf
       return rconf
 
+  def get_raw_rank(self, topic, num):
+    response = urllib2.urlopen((URL_SEARCH_EXPERT % (num, topic)).replace(" ","%20")).read()
+    data = json.loads(response)
+    result = []
+    try : 
+      for item in data["Results"]:
+        result.append(item["Id"])
+    except Exception as e: 
+      print e
+      pprint.pprint(data)
+  
+    return result
+    
+
 
 ZC = AClient()
 
@@ -188,12 +210,16 @@ if __name__ == '__main__' :
 #apub_list = c.get_pubs_by_aid(aid)
 #print(len(apub_list))
 
-  confs_num = ZC.get_confs_num_by_topic('Distributed System')
-  print confs_num
-  if (confs_num > 20) :
-    confs_num = 20
-  confs = ZC.get_confs_by_topic('Distributed System', confs_num)
-  pp.pprint(confs)
+  #confs_num = ZC.get_confs_num_by_topic('Distributed System')
+  #print confs_num
+  #if (confs_num > 20) :
+  #  confs_num = 20
+  #confs = ZC.get_confs_by_topic('Distributed System', confs_num)
+  #pp.pprint(confs)
 
-  ZC.dump_cache()
+  #ZC.dump_cache()
+
+  topic = 'data mining'
+  print ZC.get_raw_rank(topic, 10)
+
 

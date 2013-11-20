@@ -10,6 +10,7 @@ import pprint
 TRAINING_DATA = 'training_data.dat'
 RERANK_RESULT = 'rerank_result.dat'
 FMODEL_NAME = 'ef_model.dat'
+EXT_TRAIN_A_SIZE = 500
 
 
 def reform_vector(fv):
@@ -20,23 +21,43 @@ def reform_vector(fv):
   return ret
     
 
-def init_train_data(fname, topic):
+def init_train_data(fnames, topics):
   print ('[ init_train_data ] =================')
-  QID = 1
-  # amap , key : aid 
+  # amap  
+  # key : aid 
   # value : attr[0] preferance, attr[1] aid , attr[2] aname
-  amap = filter_data(fname)
-  fea = Feature(topic)
+
   train_rank = []
-  for tid in amap : 
-    aid = int(tid)
-    fv = fea.get_feature_vector(aid)
-    print ('[ init_train_data ] %d get feature vector ok.' %(aid))
-    train_rank.append( (int(amap[tid][0]), reform_vector(fv), QID) )
-    #ZC.dump_cache()
+  for QID in range(len(topics)):
+    fname = fnames[QID]
+    topic = topics[QID]
+
+    amap = filter_data(fname)
+    fea = Feature(topic)
+
+    ext_aids = ZC.get_raw_rank(topic, EXT_TRAIN_A_SIZE)
+    print '[ init_train_data ] amap_1 size = %d ' %(len(amap))
+
+    for tid in ext_aids : 
+      if not (tid in amap)  : 
+        amap[tid] = (0, tid, '')
+
+    print '[ init_train_data ] amap_2 size = %d ' %(len(amap))
+    
+    for tid in amap : 
+      fv = fea.get_feature_vector(tid)
+      #print ('[ init_train_data ] %d get feature vector ok.' %(tid))
+      train_rank.append( (amap[tid][0], reform_vector(fv), QID) )
+
+    print '[ init_train_data ]  topic : %s ok , train_rank_size = %d' %(topic, len(train_rank))
+    ZC.dump_cache()
+
+  with open('train_rank.dat' , 'w') as f :
+    pprint.pprint(train_rank, f)
 
   return train_rank
-
+    
+    
 def init_test_data(fname, topic):
   print ('[ init_train_data ] =================')
   QID = 1
@@ -51,6 +72,7 @@ def init_test_data(fname, topic):
     print ('[ init_train_data ] %d get feature vector ok.' %(aid))
     train_rank.append( (aid, reform_vector(fv), QID) )
     #ZC.dump_cache()
+
 
   return train_rank
 
@@ -67,7 +89,9 @@ def init_rerank_data(aids , topic):
   return rerank_data
 
 
-def train(training_data):
+def train(fnames, topics):
+
+  training_data = init_train_data(fnames, topics)
   print ('[ train ] ===================')
 
   with open(TRAINING_DATA, 'w') as f :
@@ -83,7 +107,6 @@ def train(training_data):
 
 
 def test(test_data, fmodel_name):
-
   print ('[ test ] ===================')
   model = svmlight.read_model(fmodel_name)
 
@@ -95,7 +118,6 @@ def test(test_data, fmodel_name):
 
 
 def zrank(aids, topic, fmodel_name):
-
   rerank_data = init_rerank_data(aids, topic)
 
   print ('[ zrank ] ===================')
@@ -111,19 +133,19 @@ def zrank(aids, topic, fmodel_name):
 
   ZC.dump_cache()
 
-
   return [x[0] for x in aid_score]
 
 
 if __name__ == '__main__' : 
-  fname = './data/data mining.txt'
-  topic = 'data mining'
-  fmodel_name = 'ef_model.dat'
-  train_rank = init_train_data(fname, topic)
-  test_rank = init_test_data(fname, topic)
+  fname_dir = './data/'
+  fname_names = ['data mining.txt', 'high performance computing.txt', 'multimedia.txt', 'human computer interaction.txt']
+  topics = ['data mining', 'high performance computing', 'multimedia', 'human computer interaction']
+  fnames = [ fname_dir + x for x in fname_names]
 
-  train(train_rank)
+  fmodel_name = 'ef_model.dat'
+
+  train(fnames, topics)
   #test(test_rank, fmodel_name)
-  zrank(test_rank, fmodel_name)
+  #zrank(test_rank, fmodel_name)
 
 

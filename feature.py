@@ -6,7 +6,7 @@ from aclient import ZC
 import math
 
 
-CONFS_SIZE = 200
+CONFS_SIZE = 300
 RANK_SIZE = 5
 
 class Feature:
@@ -54,7 +54,7 @@ class Feature:
         self.crank[v] += it[0].cit
       else : 
         self.prank[RANK_SIZE-1] += 1.0
-        self.crank[v] += it[0].cit
+        self.crank[RANK_SIZE-1] += it[0].cit
 
 
   def get_feature_vector(self, aid) :

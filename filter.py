@@ -7,11 +7,11 @@ def filter_data(fname):
   amap = {}
   for line in fin :
     attr = line.split(None, 2)
-    if attr[1] in amap : 
+    if int(attr[1]) in amap : 
       pass
       #print attr
     else :
-      amap[attr[1]] = attr
+      amap[int(attr[1])] = attr
       fout.write(line)
 
   fout.close()
