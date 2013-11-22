@@ -5,8 +5,10 @@ import pprint
 from publication import APub
 from conference import AConf
 
+USER = 'vivo'
 #USER = 'oyster'
-USER = 'zorksylar'
+#USER = 'zorksylar'
+
 URL_SEARCH_PUB_BY_AID = "http://arnetminer.org/services/publication/byperson/%s?u=" + USER
 URL_SEARCH_AID_BY_ANAME = "http://arnetminer.org/services/person/%s?u=" + USER
 URL_SEARCH_CONF_BY_TOPIC = "http://arnetminer.org/services/search-conference?u=" + USER + "&q=%s"
@@ -118,7 +120,8 @@ class AClient:
           ret.append(apub)
         except Exception as e : 
           print e
-          pp.pprint(d)
+          if not (e.message == 'Jconfname' ) :
+            pprint.pprint(d)
   
       AClient.cmap_aid_pubs[aid] = ret
       return ret

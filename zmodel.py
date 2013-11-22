@@ -47,7 +47,7 @@ def init_train_data(fnames, topics):
     for tid in amap : 
       fv = fea.get_feature_vector(tid)
       #print ('[ init_train_data ] %d get feature vector ok.' %(tid))
-      train_rank.append( (amap[tid][0], reform_vector(fv), QID) )
+      train_rank.append( (int(amap[tid][0]), reform_vector(fv), QID) )
 
     print '[ init_train_data ]  topic : %s ok , train_rank_size = %d' %(topic, len(train_rank))
     ZC.dump_cache()
