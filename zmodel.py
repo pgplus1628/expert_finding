@@ -10,7 +10,7 @@ import pprint
 TRAINING_DATA = 'training_data.dat'
 RERANK_RESULT = 'rerank_result.dat'
 FMODEL_NAME = 'ef_model.dat'
-EXT_TRAIN_A_SIZE = 500
+EXT_TRAIN_A_SIZE = 100
 
 
 def reform_vector(fv):
@@ -138,8 +138,10 @@ def zrank(aids, topic, fmodel_name):
 
 if __name__ == '__main__' : 
   fname_dir = './data/'
-  fname_names = ['data mining.txt', 'high performance computing.txt', 'multimedia.txt', 'human computer interaction.txt']
-  topics = ['data mining', 'high performance computing', 'multimedia', 'human computer interaction']
+#  fname_names = ['data mining.txt', 'high performance computing.txt', 'multimedia.txt', 'human computer interaction.txt']
+#  topics = ['data mining', 'high performance computing', 'multimedia', 'human computer interaction']
+  fname_names = ['multimedia.txt']
+  topics = ['multimedia']
   fnames = [ fname_dir + x for x in fname_names]
 
   fmodel_name = 'ef_model.dat'
